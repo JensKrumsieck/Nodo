@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <LangVersion>preview</LangVersion>
-        <Version>1.0.0-alpha.1</Version>
+        <Version>0.0.1-alpha.1</Version>
         <Authors>Jens Krumsieck</Authors>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
