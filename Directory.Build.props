@@ -1,6 +1,5 @@
 <Project>
     <PropertyGroup>
-        <TargetFrameworks>net6.0;net5.0;netstandard2.1</TargetFrameworks>       
         <LangVersion>preview</LangVersion>
         <Version>1.0.0-alpha.1</Version>
         <Authors>Jens Krumsieck</Authors>
