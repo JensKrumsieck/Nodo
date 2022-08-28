@@ -33,10 +33,11 @@ public static class DFS
                 if (!results.Contains(currentAdj[i]))
                     stack.Push(currentAdj[i]);
         }
+
         visited?.UnionWith(results);
         return results;
     }
-    
+
     /// <summary>
     /// List all connected figures using DFS
     /// </summary>

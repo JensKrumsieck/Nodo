@@ -1,6 +1,5 @@
 ﻿namespace Nodo.Isomorphism;
 
-
 /// <summary>
 /// This is basically a translation of GMState@isomorphvf2.py of the networkx library
 ///  which is licensed under 3-clause BSD license: https://github.com/networkx/networkx/blob/main/LICENSE.txt

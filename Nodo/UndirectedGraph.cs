@@ -13,7 +13,10 @@ public class UndirectedGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>
         Edges.AddRange(edges);
     }
 
-    public UndirectedGraph() { }
+    public UndirectedGraph()
+    {
+    }
+
     public List<TVertex> Vertices { get; } = new();
     public List<TEdge> Edges { get; } = new();
 

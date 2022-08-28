@@ -33,6 +33,7 @@ public static class BFS
                 if (!results.Contains(currentAdj[i]))
                     queue.Enqueue(currentAdj[i]);
         }
+
         visited?.UnionWith(results);
         return results;
     }

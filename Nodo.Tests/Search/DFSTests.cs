@@ -13,7 +13,7 @@ public class DFSTests
         var result = SearchDataProvider.ProvideGraph().DepthFirstSearch();
         result.Should().BeEquivalentTo(new[] {1, 3, 6, 5, 8, 9, 10, 7, 4, 2}, o => o.WithStrictOrdering());
     }
-    
+
     [Fact]
     public void ConnectedFigures_ReturnsValidResult()
     {

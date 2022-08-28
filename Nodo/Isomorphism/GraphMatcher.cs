@@ -34,7 +34,9 @@ public class GraphMatcher
 
     private TestMode _mode;
 
+#pragma warning disable CS8618
     public GraphMatcher(IGraph<int, Edge<int>> g1, IGraph<int, Edge<int>> g2)
+#pragma warning restore CS8618
     {
         G1 = g1;
         G2 = g2;

@@ -11,7 +11,7 @@ public static class IsomorphismExtensions
     /// <returns></returns>
     public static bool IsIsomorphicTo(this IGraph<int, Edge<int>> graphG, IGraph<int, Edge<int>> graphH) =>
         IsIsomorphicTo(graphG, graphH, out _);
-    
+
     /// <summary>
     /// Returns true if graphG is isomorphic to graphH
     /// </summary>
@@ -19,7 +19,8 @@ public static class IsomorphismExtensions
     /// <param name="graphH"></param>
     /// <param name="mapping"></param>
     /// <returns></returns>
-    public static bool IsIsomorphicTo(this IGraph<int, Edge<int>> graphG, IGraph<int, Edge<int>> graphH, out Dictionary<int, int> mapping)
+    public static bool IsIsomorphicTo(this IGraph<int, Edge<int>> graphG, IGraph<int, Edge<int>> graphH,
+        out Dictionary<int, int> mapping)
     {
         var matcher = new Isomorphism.GraphMatcher(graphG, graphH);
         var result = matcher.IsIsomorphic();
@@ -43,7 +44,7 @@ public static class IsomorphismExtensions
         mapping = matcher.Mapping;
         return result;
     }
-    
+
     /// <summary>
     /// Returns true if target has subgraph which is isomorphic to search
     /// search must not contain more nodes than target

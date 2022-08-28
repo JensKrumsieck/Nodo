@@ -4,7 +4,9 @@ using Nodo.Isomorphism;
 using Xunit;
 
 namespace Nodo.Tests.Isomorphism;
+
 using static IsomorphismDataProvider;
+
 public class IsomorphismsTests
 {
     [Fact]
@@ -13,7 +15,7 @@ public class IsomorphismsTests
         var matcher = new GraphMatcher(ProvideG2(), ProvideG3());
         Assert.False(matcher.IsIsomorphic());
     }
-    
+
     [Fact]
     public void Test_Is_Isomorphic()
     {
@@ -32,7 +34,7 @@ public class IsomorphismsTests
         matcher = new GraphMatcher(ProvideHexagon(), ProvideHexagon());
         Assert.True(matcher.IsIsomorphic());
     }
-    
+
     [Fact]
     public void Test_Is_Subgraph_Isomorphic()
     {
@@ -56,7 +58,7 @@ public class IsomorphismsTests
         ProvideG1().IsIsomorphicTo(ProvideG2(), out var mapping);
         mapping.Should().HaveCount(ProvideG1().Vertices.Count);
     }
-    
+
     [Fact]
     public void Test_SubgraphIsomorphicExtensionMethod()
     {

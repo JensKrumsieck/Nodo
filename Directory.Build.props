@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworks>net6.0,net5.0</TargetFrameworks>
+        <LangVersion>preview</LangVersion>
+        <Version>1.0.0-alpha.1</Version>
+        <Authors>Jens Krumsieck</Authors>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Copyright>Jens Krumsieck</Copyright>
+        <PackageProjectUrl>https://github.com/JensKrumsieck/Nodo</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/JensKrumsieck/Nodo</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Graphtheory, Graph, Isomorphism, DFS, BFS, Edge, Node</PackageTags>
+    </PropertyGroup>
+</Project>

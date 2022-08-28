@@ -2,7 +2,7 @@
 
 public static class SearchDataProvider
 {
-    public static new UndirectedGraph<int, Edge<int>> ProvideGraph()
+    public static UndirectedGraph<int, Edge<int>> ProvideGraph()
     {
         var vertices = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         var edges = new[]
