@@ -10,3 +10,4 @@ It was extracted to use it without the need to use ChemSharp.
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/JensKrumsieck/Nodo)
 [![GitHub license](https://img.shields.io/github/license/JensKrumsieck/Nodo)](https://github.com/JensKrumsieck/Nodo/blob/master/LICENSE)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/jenskrumsieck/nodo)
+[![NuGet Badge](https://buildstats.info/nuget/Nodo)](https://www.nuget.org/packages/Nodo/)
