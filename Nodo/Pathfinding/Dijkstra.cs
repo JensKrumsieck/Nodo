@@ -33,6 +33,79 @@ public static class Dijkstra
         return dist;
     }
 
+    const int UnweightedDistance = 1;
+    /// <summary>
+    /// Find shortest path between two nodes
+    /// Using Undirected & Unweighted Graph!
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <typeparam name="TVertex"></typeparam>
+    /// <typeparam name="TEdge"></typeparam>
+    /// <returns></returns>
+    public static List<TVertex> FindShortestPathBetween<TVertex, TEdge>(UndirectedGraph<TVertex, TEdge> graph, TVertex start,
+        TVertex end) where TVertex : IEquatable<TVertex> where TEdge : IEdge<TVertex>
+    {
+        var current = start;
+        var visited = new HashSet<TVertex>();
+        var stack = new Stack<TVertex>(graph.Vertices);
+        var distances = graph.Vertices.ToDictionary(v => v, v => int.MaxValue); //set distances of each vertex to max
+        distances[start] = 0;
+        while (true)
+        {
+            //calculate distances for current's neighbors
+            foreach (var neighbor in graph.Neighbors(current).Where(v => !visited.Contains(v)))
+            {
+                var currentDistance = distances[start] + UnweightedDistance; //unweighted graph -> distance is 1
+                if (currentDistance < distances[neighbor]) distances[neighbor] = currentDistance;
+            }
+            //add current node to visited set
+            visited.Add(current);
+            TVertex next = stack.Pop();
+            stack
+            if (distances[next] == int.MaxValue)
+            {
+                if (distances[end] == int.MaxValue) return new List<TVertex>(); //no path found :(
+                visited.Add(end);
+                break;
+            }
+
+            var smallest = next;
+            current = smallest;
+        }
+
+        return BuildPath(graph, start, end, visited, distances);
+    }
+
+    private static List<TVertex> BuildPath<TVertex, TEdge>(UndirectedGraph<TVertex, TEdge> graph, TVertex start, TVertex end, 
+        HashSet<TVertex> visited, Dictionary<TVertex, int> distances) 
+        where TVertex : IEquatable<TVertex>
+        where TEdge : IEdge<TVertex>
+    {
+        var current = end;
+        var path = new List<TVertex>() {current};
+        var currentDistance = distances[end];
+        while (true)
+        {
+            if(current.Equals(start)) break;
+            foreach (var neighbor in graph.Neighbors(current).Where(v => !visited.Contains(v)))
+            {
+                
+                if (currentDistance - UnweightedDistance == distances[neighbor])
+                {
+                    current = neighbor;
+                    path.Add(current);
+                    currentDistance -= UnweightedDistance;
+                    break;
+                }
+            }
+        }
+
+        path.Reverse();
+        return path;
+    }
+
     /// <summary>
     ///     Get Minimum Distance between to vertices
     /// </summary>
