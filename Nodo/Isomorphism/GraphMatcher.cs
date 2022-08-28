@@ -1,4 +1,6 @@
-﻿namespace Nodo.Isomorphism;
+﻿using Nodo.Extensions;
+
+namespace Nodo.Isomorphism;
 
 /// <summary>
 /// This is basically a translation of GraphMatcher@isomorphvf2.py of the networkx library
@@ -72,8 +74,8 @@ public class GraphMatcher
     public bool IsIsomorphic()
     {
         if (G1.Vertices.Count != G2.Vertices.Count) return false;
-        var degrees1 = G1.Vertices.Select(v => G1.Neighbors(v).Count).OrderBy(s => s).ToList();
-        var degrees2 = G2.Vertices.Select(v => G2.Neighbors(v).Count).OrderBy(s => s).ToList();
+        var degrees1 = G1.Vertices.Select(v => G1.Degree(v)).OrderBy(s => s).ToList();
+        var degrees2 = G2.Vertices.Select(v => G2.Degree(v)).OrderBy(s => s).ToList();
         return !degrees1.Where((t, i) => t != degrees2[i]).Any() && IsomorphismsIter().GetEnumerator().MoveNext();
     }
 
