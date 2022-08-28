@@ -31,7 +31,7 @@ public struct MatrixInt : IEquatable<MatrixInt>
     }
 
 
-    public override bool Equals(object obj) => obj is MatrixInt other && Equals(other);
+    public override bool Equals(object? obj) => obj is MatrixInt other && Equals(other);
 
     public override int GetHashCode() => (_values != null ? _values.GetHashCode() : 0);
 
