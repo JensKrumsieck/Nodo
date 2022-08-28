@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0,net5.0;netstandard2.1</TargetFrameworks>
-        <PackageId>Nodo</PackageId>
+       <PackageId>Nodo</PackageId>
         <Description>Provides some graph theory methods</Description>
     </PropertyGroup>
 
