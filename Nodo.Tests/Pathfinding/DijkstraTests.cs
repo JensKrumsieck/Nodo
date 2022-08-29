@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Nodo.Pathfinding;
 using Xunit;
+using static Nodo.Tests.Pathfinding.PathFindingDataProvider;
 
 namespace Nodo.Tests.Pathfinding;
 
@@ -28,20 +29,34 @@ public class DijkstraTests
     }
 
     [Fact]
-    public void Dijkstra_Should_Be_Valid()
+    public void Dijkstra_Distance_Should_Be_Valid()
     {
-        var graph = new UndirectedGraph<int, Edge<int>>();
-        graph.Vertices.AddRange(new[]{1, 2, 3, 4, 5, 6});
-        graph.Edges.Add((1,6));
-        graph.Edges.Add((1,3));
-        graph.Edges.Add((1,2));
-        graph.Edges.Add((2,3));
-        graph.Edges.Add((2,4));
-        graph.Edges.Add((3,6));
-        graph.Edges.Add((3,4));
-        graph.Edges.Add((4,5));
-        graph.Edges.Add((5,6));
-        var path = Dijkstra.FindShortestPathBetween(graph, 1, 5);
+        var (_, distances) = Dijkstra.DijkstraDistances(ProvideUnweightedGraph(), 1, 5);
+        var distanceToFive = distances[5];
+        distanceToFive.Should().Be(2); //1,6,5
+    }
+
+    [Fact]
+    public void Dijkstra_Path_Should_Be_Valid()
+    {
+        var graph = ProvideUnweightedGraph();
+        var path = Dijkstra.FindShortestPath(graph, 1, 5);
         path[0].Should().Be(1);
+        path[1].Should().Be(6);
+        path[2].Should().Be(5);
+    }
+
+    [Fact]
+    public void Dijkstra_Distance_Should_Be_Valid_For_Weighted()
+    {
+        //wikipedia.de example
+        var graph = ProvideWeightedGraph();
+        var (previous, distances) = Dijkstra.DijkstraDistances(graph, 1, 5);
+        distances[5].Should().Be(20);
+        var path = Dijkstra.FindShortestPath(5, previous);
+        path[0].Should().Be(1);
+        path[1].Should().Be(3);
+        path[2].Should().Be(6);
+        path[3].Should().Be(5);
     }
 }
