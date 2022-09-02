@@ -1,9 +1,33 @@
 ﻿namespace Nodo.Pathfinding;
 
+public static class PathfindingUtil
+{
+    /// <summary>
+    /// Returns shortest path between start and end from pathfinding calculation
+    /// </summary>
+    /// <param name="end"></param>
+    /// <param name="previous"></param>
+    /// <typeparam name="TVertex"></typeparam>
+    /// <returns></returns>
+    public static List<TVertex> ReconstructPath<TVertex>(TVertex end, Dictionary<TVertex, TVertex?> previous)
+        where TVertex : IEquatable<TVertex>
+    {
+        var path = new List<TVertex> {end};
+        var u = end;
+        while (previous.ContainsKey(u) && previous[u] is { } g && !g.Equals(default))
+        {
+            u = previous[u]!;
+            path.Add(u);
+        }
+
+        path.Reverse();
+        return path;
+    }
+}
+
 public static class Dijkstra
 {
-    const int UnweightedDistance = 1;
-    
+    private const int UnweightedDistance = 1;
     /// <summary>
     /// Matrix based Implementation of Dijkstra Algorithm
     /// </summary>
@@ -50,14 +74,14 @@ public static class Dijkstra
         var distances = graph.Vertices.ToDictionary(v => v, v => double.MaxValue);
         distances[start] = 0; //per definition
         var previous = graph.Vertices.ToDictionary(v => v, v => default(TVertex?));
-        var Q = new List<TVertex>(graph.Vertices);
+        var q = new List<TVertex>(graph.Vertices);
         var isWeightedEdge = typeof(IWeightedEdge<TVertex, double>).IsAssignableFrom(typeof(TEdge));
-        while (Q.Any())
+        while (q.Any())
         {
-            var u = Q.OrderBy(v => distances[v]).First();
-            Q.Remove(u);
+            var u = q.OrderBy(v => distances[v]).First();
+            q.Remove(u);
             if(end != null && u.Equals(end)) break;
-            foreach (var v in graph.Neighbors(u).Where(v => Q.Contains(v)))
+            foreach (var v in graph.Neighbors(u).Where(v => q.Contains(v)))
             {
                 var alt = distances[u];
                 if (isWeightedEdge)
@@ -81,34 +105,12 @@ public static class Dijkstra
         return (previous, distances);
     }
 
-    /// <summary>
-    /// Returns shortest path between start and end from dijkstra calculation
-    /// </summary>
-    /// <param name="end"></param>
-    /// <param name="previous"></param>
-    /// <typeparam name="TVertex"></typeparam>
-    /// <returns></returns>
-    public static List<TVertex> FindShortestPath<TVertex>(TVertex end, Dictionary<TVertex, TVertex?> previous)
-        where TVertex : IEquatable<TVertex>
-    {
-        var path = new List<TVertex> {end};
-        var u = end;
-        while (previous.ContainsKey(u) && previous[u] is { } g && !g.Equals(default))
-        {
-            u = previous[u]!;
-            path.Add(u);
-        }
-
-        path.Reverse();
-        return path;
-    }
-
     public static List<TVertex> FindShortestPath<TVertex, TEdge>(UndirectedGraph<TVertex, TEdge> graph, TVertex start,
                                                                  TVertex end)
         where TVertex : IEquatable<TVertex> where TEdge : IEdge<TVertex>
     {
         var (previous, _) = DijkstraDistances(graph, start, end);
-        return FindShortestPath(end, previous);
+        return PathfindingUtil.ReconstructPath(end, previous);
     }
 
     /// <summary>

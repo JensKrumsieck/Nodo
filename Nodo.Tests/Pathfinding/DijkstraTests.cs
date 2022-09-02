@@ -53,7 +53,7 @@ public class DijkstraTests
         var graph = ProvideWeightedGraph();
         var (previous, distances) = Dijkstra.DijkstraDistances(graph, 1, 5);
         distances[5].Should().Be(20);
-        var path = Dijkstra.FindShortestPath(5, previous);
+        var path = PathfindingUtil.ReconstructPath(5, previous);
         path[0].Should().Be(1);
         path[1].Should().Be(3);
         path[2].Should().Be(6);
