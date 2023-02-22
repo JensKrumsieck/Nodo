@@ -10,16 +10,16 @@ public class BacktrackingTests
     public void Should_Produce_Valid_Paths()
     {
         var graph = new UndirectedGraph<int, Edge<int>>();
-        graph.Vertices.AddRange(new []{1,2,3,4,5,6,7,8,9,10});
-        graph.Edges.Add((1,2));
-        graph.Edges.Add((2,3));
-        graph.Edges.Add((2,4));
-        graph.Edges.Add((4,5));
-        graph.Edges.Add((5,6));
-        graph.Edges.Add((3,7));
-        graph.Edges.Add((7,8));
-        graph.Edges.Add((8,9));
-        graph.Edges.Add((9,10));
+        graph.Vertices.AddRange(new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        graph.Edges.Add((1, 2));
+        graph.Edges.Add((2, 3));
+        graph.Edges.Add((2, 4));
+        graph.Edges.Add((4, 5));
+        graph.Edges.Add((5, 6));
+        graph.Edges.Add((3, 7));
+        graph.Edges.Add((7, 8));
+        graph.Edges.Add((8, 9));
+        graph.Edges.Add((9, 10));
 
         var start = 1;
         var end = 10;

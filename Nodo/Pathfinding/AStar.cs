@@ -3,8 +3,9 @@
 public static class AStar
 {
     private const int UnweightedDistance = 1;
+
     public static List<TVertex>? FindShortestPath<TVertex, TEdge>(UndirectedGraph<TVertex, TEdge> graph, TVertex start,
-        TVertex end, Func<TVertex, double> h)
+                                                                  TVertex end, Func<TVertex, double> h)
         where TVertex : IEquatable<TVertex> where TEdge : IEdge<TVertex>
     {
         var q = new List<TVertex> {start};
@@ -21,7 +22,7 @@ public static class AStar
             q.Remove(current);
             foreach (var neighbor in graph.Neighbors(current))
             {
-                var tentativeGScore =  gScore[current];
+                var tentativeGScore = gScore[current];
                 if (isWeightedEdge)
                 {
                     var edge = graph.GetEdge(current, neighbor);
@@ -32,17 +33,18 @@ public static class AStar
                     }
                 }
                 else
-                    tentativeGScore +=  UnweightedDistance;
+                    tentativeGScore += UnweightedDistance;
 
                 if (tentativeGScore < gScore[neighbor])
                 {
                     previous[neighbor] = current;
                     gScore[neighbor] = tentativeGScore;
                     fScore[neighbor] = tentativeGScore + h(neighbor);
-                    if(!q.Contains(neighbor)) q.Add(neighbor);
+                    if (!q.Contains(neighbor)) q.Add(neighbor);
                 }
             }
         }
+
         return null;
     }
 }

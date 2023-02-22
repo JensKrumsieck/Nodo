@@ -23,9 +23,9 @@ public struct MatrixInt : IEquatable<MatrixInt>
     public bool Equals(MatrixInt other)
     {
         for (var i = 0; i < Length; i++)
-        for (var j = 0; j < Length; j++)
-            if (other[i, j] != this[i, j])
-                return false;
+            for (var j = 0; j < Length; j++)
+                if (other[i, j] != this[i, j])
+                    return false;
 
         return true;
     }
@@ -33,7 +33,7 @@ public struct MatrixInt : IEquatable<MatrixInt>
 
     public override bool Equals(object? obj) => obj is MatrixInt other && Equals(other);
 
-    public override int GetHashCode() => (_values != null ? _values.GetHashCode() : 0);
+    public override int GetHashCode() => _values != null ? _values.GetHashCode() : 0;
 
     public static bool operator ==(MatrixInt a, MatrixInt b) => a.Equals(b);
     public static bool operator !=(MatrixInt a, MatrixInt b) => !a.Equals(b);

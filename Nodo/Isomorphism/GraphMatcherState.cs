@@ -1,23 +1,21 @@
 ﻿namespace Nodo.Isomorphism;
 
 /// <summary>
-/// This is basically a translation of GMState@isomorphvf2.py of the networkx library
-///  which is licensed under 3-clause BSD license: https://github.com/networkx/networkx/blob/main/LICENSE.txt
-/// 
-/// Copyright (C) 2004-2022, NetworkX Developers
-/// Aric Hagberg // hagberg@lanl.gov
-/// Dan Schult // dschult@colgate.edu
-/// Pieter Swart // swart@lanl.gov
-/// 
-/// original file can be found here: 
-/// https://github.com/networkx/networkx/blob/main/networkx/algorithms/isomorphism/isomorphvf2.py
+///     This is basically a translation of GMState@isomorphvf2.py of the networkx library
+///     which is licensed under 3-clause BSD license: https://github.com/networkx/networkx/blob/main/LICENSE.txt
+///     Copyright (C) 2004-2022, NetworkX Developers
+///     Aric Hagberg // hagberg@lanl.gov
+///     Dan Schult // dschult@colgate.edu
+///     Pieter Swart // swart@lanl.gov
+///     original file can be found here:
+///     https://github.com/networkx/networkx/blob/main/networkx/algorithms/isomorphism/isomorphvf2.py
 /// </summary>
 internal class GraphMatcherState
 {
-    private readonly GraphMatcher _gm;
+    private readonly int _depth;
     private readonly int _g1Node;
     private readonly int _g2Node;
-    private readonly int _depth;
+    private readonly GraphMatcher _gm;
 
     public GraphMatcherState(GraphMatcher gm, int? g1Node = null, int? g2Node = null)
     {
@@ -26,10 +24,10 @@ internal class GraphMatcherState
 
         if (g1Node == null || g2Node == null)
         {
-            _gm.Core1 = new();
-            _gm.Core2 = new();
-            _gm.Inout1 = new();
-            _gm.Inout2 = new();
+            _gm.Core1 = new Dictionary<int, int>();
+            _gm.Core2 = new Dictionary<int, int>();
+            _gm.Inout1 = new Dictionary<int, int>();
+            _gm.Inout2 = new Dictionary<int, int>();
             return;
         }
 
@@ -43,9 +41,9 @@ internal class GraphMatcherState
 
         var newNodes = new List<int>();
         foreach (var neighbors in _gm.Core1
-                     .Select(node => _gm.G1.Neighbors(node.Key)))
+                                     .Select(node => _gm.G1.Neighbors(node.Key)))
             newNodes.AddRange(neighbors
-                .Where(n => !_gm.Core1.ContainsKey(n)));
+                                  .Where(n => !_gm.Core1.ContainsKey(n)));
 
         foreach (var node in newNodes
                      .Where(node => !_gm.Inout1.ContainsKey(node)))
@@ -53,9 +51,9 @@ internal class GraphMatcherState
 
         newNodes = new List<int>();
         foreach (var neighbors in _gm.Core2
-                     .Select(node => _gm.G2.Neighbors(node.Key)))
+                                     .Select(node => _gm.G2.Neighbors(node.Key)))
             newNodes.AddRange(neighbors
-                .Where(n => !_gm.Core2.ContainsKey(n)));
+                                  .Where(n => !_gm.Core2.ContainsKey(n)));
         foreach (var node in newNodes
                      .Where(node => !_gm.Inout2.ContainsKey(node)))
             _gm.Inout2[node] = _depth;
@@ -66,10 +64,10 @@ internal class GraphMatcherState
         _gm.Core1.Remove(_g1Node);
         _gm.Core2.Remove(_g2Node);
         foreach (var inout in _gm.Inout1
-                     .Where(inout => inout.Value == _depth))
+                                 .Where(inout => inout.Value == _depth))
             _gm.Inout1.Remove(inout.Key);
         foreach (var inout in _gm.Inout2
-                     .Where(inout => inout.Value == _depth))
+                                 .Where(inout => inout.Value == _depth))
             _gm.Inout2.Remove(inout.Key);
     }
 }

@@ -3,7 +3,7 @@
 public static class BFS
 {
     /// <summary>
-    /// Breadth First Search Algorithm
+    ///     Breadth First Search Algorithm
     /// </summary>
     /// <param name="graph">The Graph Object</param>
     /// <param name="start">Start vertex or null</param>

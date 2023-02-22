@@ -3,7 +3,7 @@
 public static class DFS
 {
     /// <summary>
-    /// Depth First Search Algorithm
+    ///     Depth First Search Algorithm
     /// </summary>
     /// <param name="graph">The Graph Object</param>
     /// <param name="start">Start vertex or null</param>
@@ -39,7 +39,7 @@ public static class DFS
     }
 
     /// <summary>
-    /// List all connected figures using DFS
+    ///     List all connected figures using DFS
     /// </summary>
     /// <param name="graph"></param>
     /// <typeparam name="TVertex"></typeparam>

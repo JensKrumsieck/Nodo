@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
+﻿using System.Numerics;
 using FluentAssertions;
 using Xunit;
 
@@ -7,17 +6,18 @@ namespace Nodo.Tests;
 
 public class GraphTests
 {
-    private UndirectedGraph<string, Edge<string>> _graph;
+    private readonly UndirectedGraph<string, Edge<string>> _graph;
 
     public GraphTests() =>
         _graph = new UndirectedGraph<string, Edge<string>>(
-            new[] {"Hallo", "Welt", "Ihr", "Lieben"},
-            new[]
-            {
-                new Edge<string>("Hallo", "Ihr"), new Edge<string>("Ihr", "Lieben"),
-                new Edge<string>("Hallo", "Welt")
-            }
-        );
+                                                           new[] {"Hallo", "Welt", "Ihr", "Lieben"},
+                                                           new[]
+                                                           {
+                                                               new Edge<string>("Hallo", "Ihr"),
+                                                               new Edge<string>("Ihr", "Lieben"),
+                                                               new Edge<string>("Hallo", "Welt")
+                                                           }
+                                                          );
 
     [Fact]
     public void Graph_ShouldBeInitialized()

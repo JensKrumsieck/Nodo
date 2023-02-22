@@ -3,7 +3,7 @@
 public static class PathfindingUtil
 {
     /// <summary>
-    /// Returns shortest path between start and end from pathfinding calculation
+    ///     Returns shortest path between start and end from pathfinding calculation
     /// </summary>
     /// <param name="end"></param>
     /// <param name="previous"></param>
@@ -28,8 +28,9 @@ public static class PathfindingUtil
 public static class Dijkstra
 {
     private const int UnweightedDistance = 1;
+
     /// <summary>
-    /// Matrix based Implementation of Dijkstra Algorithm
+    ///     Matrix based Implementation of Dijkstra Algorithm
     /// </summary>
     /// <param name="adjacency">Adjacency Matrix</param>
     /// <param name="srcV">Source Vertex</param>
@@ -60,8 +61,8 @@ public static class Dijkstra
     }
 
     /// <summary>
-    /// Find shortest path between two nodes
-    /// Using UndirectedGraph
+    ///     Find shortest path between two nodes
+    ///     Using UndirectedGraph
     /// </summary>
     /// <param name="graph"></param>
     /// <param name="start"></param>
@@ -69,7 +70,9 @@ public static class Dijkstra
     /// <typeparam name="TVertex"></typeparam>
     /// <typeparam name="TEdge"></typeparam>
     /// <returns></returns>
-    public static (Dictionary<TVertex, TVertex?> previous, Dictionary<TVertex, double> distances) DijkstraDistances<TVertex, TEdge>(UndirectedGraph<TVertex, TEdge> graph, TVertex start, TVertex? end = default) where TVertex : IEquatable<TVertex> where TEdge : IEdge<TVertex>
+    public static (Dictionary<TVertex, TVertex?> previous, Dictionary<TVertex, double> distances)
+        DijkstraDistances<TVertex, TEdge>(UndirectedGraph<TVertex, TEdge> graph, TVertex start, TVertex? end = default)
+        where TVertex : IEquatable<TVertex> where TEdge : IEdge<TVertex>
     {
         var distances = graph.Vertices.ToDictionary(v => v, v => double.MaxValue);
         distances[start] = 0; //per definition
@@ -80,7 +83,7 @@ public static class Dijkstra
         {
             var u = q.OrderBy(v => distances[v]).First();
             q.Remove(u);
-            if(end != null && u.Equals(end)) break;
+            if (end != null && u.Equals(end)) break;
             foreach (var v in graph.Neighbors(u).Where(v => q.Contains(v)))
             {
                 var alt = distances[u];
@@ -94,7 +97,7 @@ public static class Dijkstra
                     }
                 }
                 else
-                    alt +=  UnweightedDistance;
+                    alt += UnweightedDistance;
 
                 if (!(alt < distances[v])) continue;
                 distances[v] = alt;
@@ -132,7 +135,7 @@ public static class Dijkstra
 
         return iMin;
     }
-    
+
     /// <summary>
     ///     Returns the Distance Matrix using Dijkstra Algorithm
     /// </summary>
@@ -148,6 +151,7 @@ public static class Dijkstra
             for (var j = 0; j < path.Length; j++)
                 dist[i, j] = path[j];
         }
+
         return dist;
     }
 }

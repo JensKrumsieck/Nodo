@@ -17,7 +17,7 @@ public static class PathFindingDataProvider
         graph.Edges.Add((5, 6));
         return graph;
     }
-    
+
     public static UndirectedGraph<int, WeightedEdge<int>> ProvideWeightedGraph()
     {
         var graph = new UndirectedGraph<int, WeightedEdge<int>>();

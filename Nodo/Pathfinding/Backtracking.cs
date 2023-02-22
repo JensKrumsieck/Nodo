@@ -18,7 +18,7 @@ public static class Backtracking
         BackTrack(goal, path, neighbors, limit, ref maxSteps);
         return path;
     }
-    
+
     /// <summary>
     ///     Recursive Implementation of backtracking
     /// </summary>
@@ -30,7 +30,7 @@ public static class Backtracking
     /// <param name="maxSteps"></param>
     /// <returns></returns>
     private static bool BackTrack<T>(T goal, ISet<T> visited, Func<T, IEnumerable<T>> neighbors, int limit,
-        ref int maxSteps)
+                                     ref int maxSteps)
     {
         if (--maxSteps <= 0) return false;
 

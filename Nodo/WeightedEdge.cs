@@ -12,8 +12,12 @@ public class WeightedEdge<TVertex> : IEdge<TVertex>, IWeightedEdge<TVertex, doub
     public TVertex Source { get; }
     public TVertex Target { get; }
     public double Weight { get; set; }
-    
-    public static implicit operator WeightedEdge<TVertex>((TVertex, TVertex, double) tuple) => new(tuple.Item1, tuple.Item2, tuple.Item3);
-    public static implicit operator (TVertex, TVertex, double)(WeightedEdge<TVertex> edge) => (edge.Source, edge.Target, edge.Weight);
+
+    public static implicit operator WeightedEdge<TVertex>((TVertex, TVertex, double) tuple) =>
+        new(tuple.Item1, tuple.Item2, tuple.Item3);
+
+    public static implicit operator (TVertex, TVertex, double)(WeightedEdge<TVertex> edge) =>
+        (edge.Source, edge.Target, edge.Weight);
+
     public override string ToString() => $"{Source} <-> {Target}: {Weight}";
 }

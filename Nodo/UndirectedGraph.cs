@@ -35,7 +35,7 @@ public class UndirectedGraph<TVertex, TEdge> : IGraph<TVertex, TEdge>
     public void RebuildCache() => _cachedNeighbors = Vertices.ToDictionary(v => v, v => _Neighbors(v).ToList());
 
     /// <summary>
-    /// Returns edge containing u and v if exists, null otherwise
+    ///     Returns edge containing u and v if exists, null otherwise
     /// </summary>
     /// <param name="u"></param>
     /// <param name="v"></param>

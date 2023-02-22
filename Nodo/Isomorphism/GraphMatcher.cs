@@ -3,26 +3,26 @@
 namespace Nodo.Isomorphism;
 
 /// <summary>
-/// This is basically a translation of GraphMatcher@isomorphvf2.py of the networkx library
-///  which is licensed under 3-clause BSD license: https://github.com/networkx/networkx/blob/main/LICENSE.txt
-/// 
-/// Copyright (C) 2004-2022, NetworkX Developers
-/// Aric Hagberg // hagberg@lanl.gov
-/// Dan Schult // dschult@colgate.edu
-/// Pieter Swart // swart@lanl.gov
-/// 
-/// original file can be found here: 
-/// https://github.com/networkx/networkx/blob/main/networkx/algorithms/isomorphism/isomorphvf2.py
+///     This is basically a translation of GraphMatcher@isomorphvf2.py of the networkx library
+///     which is licensed under 3-clause BSD license: https://github.com/networkx/networkx/blob/main/LICENSE.txt
+///     Copyright (C) 2004-2022, NetworkX Developers
+///     Aric Hagberg // hagberg@lanl.gov
+///     Dan Schult // dschult@colgate.edu
+///     Pieter Swart // swart@lanl.gov
+///     original file can be found here:
+///     https://github.com/networkx/networkx/blob/main/networkx/algorithms/isomorphism/isomorphvf2.py
 /// </summary>
 public class GraphMatcher
 {
+    private readonly List<int> _g1Nodes;
+
+    private readonly Dictionary<int, int> _g2NodeOrder;
+    private readonly List<int> _g2Nodes;
     public readonly IGraph<int, Edge<int>> G1;
     public readonly IGraph<int, Edge<int>> G2;
 
-    private readonly List<int> _g1Nodes;
-    private readonly List<int> _g2Nodes;
-
-    private readonly Dictionary<int, int> _g2NodeOrder;
+    private TestMode _mode;
+    private GraphMatcherState _state;
     internal Dictionary<int, int> Core1;
     internal Dictionary<int, int> Core2;
 
@@ -30,9 +30,6 @@ public class GraphMatcher
     internal Dictionary<int, int> Inout2;
 
     public Dictionary<int, int> Mapping;
-    private GraphMatcherState _state;
-
-    private TestMode _mode;
 
 #pragma warning disable CS8618
     public GraphMatcher(IGraph<int, Edge<int>> g1, IGraph<int, Edge<int>> g2)
@@ -49,12 +46,12 @@ public class GraphMatcher
 
     private void Initialize()
     {
-        Core1 = new();
-        Core2 = new();
-        Inout1 = new();
-        Inout2 = new();
-        Mapping = new();
-        _state = new(this);
+        Core1 = new Dictionary<int, int>();
+        Core2 = new Dictionary<int, int>();
+        Inout1 = new Dictionary<int, int>();
+        Inout2 = new Dictionary<int, int>();
+        Mapping = new Dictionary<int, int>();
+        _state = new GraphMatcherState(this);
     }
 
     private IEnumerable<(int, int)> CandidatePairsIter()
@@ -105,7 +102,6 @@ public class GraphMatcher
             yield return Mapping;
         }
         else
-        {
             foreach (var (g1Node, g2Node) in CandidatePairsIter())
             {
                 if (!SyntacticFeasible(g1Node, g2Node)) continue;
@@ -114,16 +110,15 @@ public class GraphMatcher
                 foreach (var m in Match()) yield return m;
                 newstate.Restore();
             }
-        }
     }
 
     private bool SyntacticFeasible(int g1Node, int g2Node)
     {
         if (G1.Neighbors(g1Node).Where(neighbor => Core1.ContainsKey(neighbor))
-            .Any(neighbor => !G2.Neighbors(g2Node).Contains(Core1[neighbor])))
+              .Any(neighbor => !G2.Neighbors(g2Node).Contains(Core1[neighbor])))
             return false;
         if (G2.Neighbors(g2Node).Where(neighbor => Core2.ContainsKey(neighbor))
-            .Any(neighbor => !G1.Neighbors(g1Node).Contains(Core2[neighbor])))
+              .Any(neighbor => !G1.Neighbors(g1Node).Contains(Core2[neighbor])))
             return false;
 
         var num1 = G1.Neighbors(g1Node).Count(neighbor => Inout1.ContainsKey(neighbor) && !Core1.ContainsKey(neighbor));
