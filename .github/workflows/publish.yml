@@ -31,4 +31,4 @@ jobs:
       run: dotnet pack -c Release --no-restore --no-build
     - run: cd ../
     - name: publish nuget
-      run: dotnet nuget push "*.nupkg" --skip-duplicate --no-symbols -k ${{secrets.NUGET_TOKEN}} -s https://api.nuget.org/v3/index.json  
+      run: dotnet nuget push **\*.nupkg --skip-duplicate --no-symbols -k ${{secrets.NUGET_TOKEN}} -s https://api.nuget.org/v3/index.json  
